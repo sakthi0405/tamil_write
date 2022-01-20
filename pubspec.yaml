@@ -13,12 +13,6 @@ dependencies:
   # display signature
   signature: ^3.2.1
 
-  # save signature
-  permission_handler: ^5.1.0+2
-  image_gallery_saver: ^1.7.1
-
-  # show snackbar
-  flushbar: ^1.10.4
   path_provider: ^2.0.8
 
 dev_dependencies:
