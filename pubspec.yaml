@@ -19,6 +19,7 @@ dependencies:
 
   # show snackbar
   flushbar: ^1.10.4
+  path_provider: ^2.0.8
 
 dev_dependencies:
   flutter_test:
