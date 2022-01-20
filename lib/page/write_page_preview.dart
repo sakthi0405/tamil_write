@@ -31,10 +31,12 @@ class WritePreviewPage extends StatelessWidget {
             const SizedBox(width: 8),
           ],
         ),
-        body: RepaintBoundary(
-          key: previewContainer,
-          child: Center(
-            child: Image.memory(signature, width: double.infinity),
+        body: Center(
+          child: RepaintBoundary(
+            key: previewContainer,
+            child: Image.memory(
+              signature,
+            ),
           ),
         ),
       );
