@@ -51,7 +51,8 @@ class WritePreviewPage extends StatelessWidget {
           await image.toByteData(format: ui.ImageByteFormat.png);
       Uint8List pngBytes = byteData.buffer.asUint8List();
       print(pngBytes);
-      File imgFile = new File('$directory/screenshot.png');
+      final time = DateTime.now().toIso8601String().replaceAll('.', ':');
+      File imgFile = new File('$directory/tamil$time.png');
 
       imgFile
           .writeAsBytes(pngBytes)
