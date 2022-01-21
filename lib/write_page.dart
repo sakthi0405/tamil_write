@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:signature/signature.dart';
-import 'package:signature_example/page/write_page_preview.dart';
+import 'write_page_preview.dart';
 
 class WritePage extends StatefulWidget {
   @override
