@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:signature/signature.dart';
 import 'write_page_preview.dart';
 
@@ -12,9 +11,7 @@ class WritePage extends StatefulWidget {
 
 class _WritePageState extends State<WritePage> {
   SignatureController controller;
-  double height;
-  double width;
-
+  
   @override
   void initState() {
     super.initState();
@@ -41,8 +38,7 @@ class _WritePageState extends State<WritePage> {
             Signature(
               controller: controller,
               backgroundColor: Colors.black,
-              width: width,
-              height: height,
+             
             ),
             buildButtons(context),
 

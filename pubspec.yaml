@@ -12,9 +12,7 @@ dependencies:
 
   # display signature
   signature: ^3.2.1
-
   path_provider: ^2.0.8
-  permission_handler: ^8.3.0
   
 
 dev_dependencies:

@@ -8,7 +8,6 @@ import 'package:permission_handler/permission_handler.dart';
 
 class WritePreviewPage extends StatelessWidget {
   final Uint8List imgBytes;
-  //static GlobalKey previewContainer = new GlobalKey();
   WritePreviewPage({
     Key key,
     @required this.imgBytes,
@@ -39,10 +38,7 @@ class WritePreviewPage extends StatelessWidget {
 
   Future storeSignature(BuildContext context) async {
     try {
-      final status = await Permission.storage.status;
-    if (status.isGranted) {
-      await Permission.storage.request();
-    }
+    
 
 
       final directory = (await getExternalStorageDirectory()).path;
