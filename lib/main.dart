@@ -6,14 +6,17 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
+
   ]);
 
   runApp(MyApp());
 }
 
+
+
 class MyApp extends StatelessWidget {
   static final String title = 'Tamil Writer';
+  
 
   @override
   Widget build(BuildContext context) {

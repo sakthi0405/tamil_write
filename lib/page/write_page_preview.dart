@@ -2,18 +2,16 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'dart:async';
-import 'dart:ui' as ui;
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class WritePreviewPage extends StatelessWidget {
-  final Uint8List signature;
-  static GlobalKey previewContainer = new GlobalKey();
+  final Uint8List imgBytes;
+  //static GlobalKey previewContainer = new GlobalKey();
   WritePreviewPage({
     Key key,
-    @required this.signature,
+    @required this.imgBytes,
   }) : super(key: key);
 
   @override
@@ -32,32 +30,30 @@ class WritePreviewPage extends StatelessWidget {
           ],
         ),
         body: Center(
-          child: RepaintBoundary(
-            key: previewContainer,
-            child: Image.memory(
-              signature,
+          child:Image.memory(
+              imgBytes,
             ),
           ),
-        ),
+       
       );
 
   Future storeSignature(BuildContext context) async {
     try {
-      RenderRepaintBoundary boundary =
-          previewContainer.currentContext.findRenderObject();
-      ui.Image image = await boundary.toImage();
+      final status = await Permission.storage.status;
+    if (status.isGranted) {
+      await Permission.storage.request();
+    }
+
+
       final directory = (await getExternalStorageDirectory()).path;
       print(directory);
 
-      ByteData byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
-      Uint8List pngBytes = byteData.buffer.asUint8List();
-      print(pngBytes);
+     
       final time = DateTime.now().toIso8601String().replaceAll('.', ':');
       File imgFile = new File('$directory/tamil$time.png');
 
       imgFile
-          .writeAsBytes(pngBytes)
+          .writeAsBytes(imgBytes)
           .then((value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
                   "Saved",
@@ -73,34 +69,6 @@ class WritePreviewPage extends StatelessWidget {
       ));
     }
 
-//     final status = await Permission.storage.status;
-//     if (!status.isGranted) {
-//       await Permission.storage.request();
-//     }
-//
-//     final time = DateTime.now().toIso8601String().replaceAll('.', ':');
-//     final name = 'tamil$time.png';
-//
-//     final result = await ImageGallerySaver.saveImage(signature, name: name);
-//     final isSuccess = result['isSuccess'];
-// if (isSuccess) {
-//       Navigator.pop(context);
-//       ScaffoldMessenger.of(context).showSnackBar(
-//       SnackBar(
-//         content: Text(
-//           "Saved",
-//         ),
-//         backgroundColor: Colors.green,
-//       ));
-//     } else {
-//       ScaffoldMessenger.of(context).showSnackBar(
-//       SnackBar(
-//         content: Text(
-//           'Failed to save',
-//         ),
-//         backgroundColor: Colors.red,
-//       ));
-//
-//     }
+    
   }
 }

@@ -12,6 +12,8 @@ class WritePage extends StatefulWidget {
 
 class _WritePageState extends State<WritePage> {
   SignatureController controller;
+  double height;
+  double width;
 
   @override
   void initState() {
@@ -21,6 +23,7 @@ class _WritePageState extends State<WritePage> {
       penStrokeWidth: 5,
       penColor: Colors.white,
     );
+    
   }
 
   @override
@@ -30,54 +33,25 @@ class _WritePageState extends State<WritePage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) {
+    
+    return Scaffold(
         body: Column(
           children: <Widget>[
             Signature(
               controller: controller,
               backgroundColor: Colors.black,
+              width: width,
+              height: height,
             ),
             buildButtons(context),
-            buildSwapOrientation(),
+
           ],
         ),
-      );
-
-  Widget buildSwapOrientation() {
-    final isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
-
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () {
-        final newOrientation =
-            isPortrait ? Orientation.landscape : Orientation.portrait;
-
-        controller.clear();
-        setOrientation(newOrientation);
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              isPortrait
-                  ? Icons.screen_lock_portrait
-                  : Icons.screen_lock_landscape,
-              size: 40,
-            ),
-            const SizedBox(width: 12),
-            Text(
-              'Tap to Rotate Screen',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
+         );
   }
 
+  
   Widget buildButtons(BuildContext context) => Container(
         color: Colors.black,
         child: Row(
@@ -97,7 +71,7 @@ class _WritePageState extends State<WritePage> {
             final signature = await exportSignature();
 
             await Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => WritePreviewPage(signature: signature),
+              builder: (context) => WritePreviewPage(imgBytes: signature),
             ));
 
             controller.clear();
@@ -125,17 +99,5 @@ class _WritePageState extends State<WritePage> {
     return signature;
   }
 
-  void setOrientation(Orientation orientation) {
-    if (orientation == Orientation.landscape) {
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeRight,
-        DeviceOrientation.landscapeLeft,
-      ]);
-    } else {
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ]);
-    }
-  }
+  
 }
