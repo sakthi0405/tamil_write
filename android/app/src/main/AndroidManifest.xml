@@ -2,7 +2,8 @@
     package="com.example.tamil_write">
    <application
         android:label="tamil_write"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
