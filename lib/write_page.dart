@@ -11,7 +11,7 @@ class WritePage extends StatefulWidget {
 
 class _WritePageState extends State<WritePage> {
   SignatureController controller;
-  
+
   @override
   void initState() {
     super.initState();
@@ -20,7 +20,6 @@ class _WritePageState extends State<WritePage> {
       penStrokeWidth: 5,
       penColor: Colors.white,
     );
-    
   }
 
   @override
@@ -31,23 +30,21 @@ class _WritePageState extends State<WritePage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-        body: Column(
-          children: <Widget>[
-            Signature(
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: Signature(
               controller: controller,
               backgroundColor: Colors.black,
-             
             ),
-            buildButtons(context),
-
-          ],
-        ),
-         );
+          ),
+          buildButtons(context),
+        ],
+      ),
+    );
   }
 
-  
   Widget buildButtons(BuildContext context) => Container(
         color: Colors.black,
         child: Row(
@@ -66,9 +63,11 @@ class _WritePageState extends State<WritePage> {
           if (controller.isNotEmpty) {
             final signature = await exportSignature();
 
-            await Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => WritePreviewPage(imgBytes: signature),
-            ));
+            await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => WritePreviewPage(imgBytes: signature),
+              ),
+            );
 
             controller.clear();
           }
@@ -94,6 +93,4 @@ class _WritePageState extends State<WritePage> {
 
     return signature;
   }
-
-  
 }
