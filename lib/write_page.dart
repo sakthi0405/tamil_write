@@ -52,6 +52,8 @@ class _WritePageState extends State<WritePage> {
           children: <Widget>[
             buildCheck(context),
             buildClear(),
+            previous(),
+            next()
           ],
         ),
       );
@@ -79,7 +81,16 @@ class _WritePageState extends State<WritePage> {
         icon: Icon(Icons.clear, color: Colors.red),
         onPressed: () => controller.clear(),
       );
-
+ Widget previous() => IconButton(
+        iconSize: 36,
+        icon: Icon(Icons.undo, color: Colors.white),
+        onPressed: () => controller.undo(),
+      );
+  Widget next() => IconButton(
+        iconSize: 36,
+        icon: Icon(Icons.redo, color: Colors.white),
+        onPressed: () => controller.redo(),
+      );
   Future<Uint8List> exportSignature() async {
     final exportController = SignatureController(
       penStrokeWidth: 2,
